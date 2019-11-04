@@ -1,0 +1,15 @@
+.container {
+    margin: 20px auto;
+    width: 500px;
+}
+
+form > div {
+    margin: 15px;
+}
+
+label {
+    display: inline-block;
+    width: 100px;
+}
+
+.pesan-error { color: red; }
