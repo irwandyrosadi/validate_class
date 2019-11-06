@@ -22,12 +22,14 @@
         $ulangi_password = $validate->setRules('ulangi_password', 'Ulangi Password', [
             'sanitize'  => 'string',
             'required'  => true,
-            'min_char'  => 6
+            'min_char'  => 6,
+            'matches'   => 'password'
         ]);
 
         $email = $validate->setRules('email', 'Email', [
             'sanitize'  => 'string',
-            'required'  => true
+            'required'  => true,
+            'email'     => true
         ]);
 
         if ($validate->passed()) {

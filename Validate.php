@@ -54,6 +54,16 @@ class Validate {
                        $this->_errors[$item] = "$itemLabel maksimal $ruleValue";
                     }
                     break;
+                
+                case 'matches':
+                    if ($formValue != $this->_formMethod[$ruleValue]) {
+                       $this->_errors[$item] = "$itemLabel tidak sama!";
+                    }
+
+                case 'email':
+                    if ($ruleValue === TRUE && !filter_var($formValue, FILTER_VALIDATE_EMAIL)) {
+                       $this->_errors[$item] = "Format $itemLabel tidak sesuai!";
+                    }
             }
             // cek jika sudah ada error di item yang sama, langsung keluar dari looping
             if (!empty($this->_errors[$item])) {
