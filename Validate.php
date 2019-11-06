@@ -78,6 +78,14 @@ class Validate {
                         $this->_errors[$item] = "Pola $itemLabel tidak sesuai";
                     }
                     break;
+
+                case 'unique':
+                    require_once 'DB.php';
+                    $DB = DB::getInstance();
+                    if ($DB->check($ruleValue[0], $ruleValue[1], $formValue)) {
+                        $this->_errors[$item] = "$itemLabel sudah terpakai, silakan pilih username yang lain";
+                    }
+                    break;
             }
             // cek jika sudah ada error di item yang sama, langsung keluar dari looping
             if (!empty($this->_errors[$item])) {

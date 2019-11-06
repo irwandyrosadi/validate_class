@@ -1,6 +1,7 @@
 <?php
     require '../Input.php';
     require '../Validate.php';
+    require '../DB.php';
 
     $error = [];
 
@@ -11,7 +12,8 @@
             'sanitize'  => 'string',
             'required'  => true,
             // 'min_char'  => 4,
-            'regexp'    => "/^[A-Za-z]{6,}$/"
+            'regexp'    => "/^[A-Za-z]{6,}$/",
+            'unique'    => ['user', 'username']
         ]);
 
         $password = $validate->setRules('password', 'Password', [
@@ -33,14 +35,23 @@
             'email'     => true
         ]);
 
-        $url   = $validate->setRules('url', 'URL', [
-            'sanitize'  => 'string',
-            'required'  => true,
-            'url'       => true
-        ]);
+        // $url   = $validate->setRules('url', 'URL', [
+        //     'sanitize'  => 'string',
+        //     'required'  => true,
+        //     'url'       => true
+        // ]);
 
         if ($validate->passed()) {
-            echo "Lolos Validasi!";
+            $DB = DB::getInstance();
+
+            $newUser = [
+                'username'  => $username,
+                'password'  => $password,
+                'email'     => $email
+            ];
+
+            $DB->insert('user',$newUser);
+            echo "Data berhasil ditambahkan ke database";
         } else {
             $error = $validate->getError();
         }
@@ -96,10 +107,10 @@
                 <label for="email">Email</label>
                 <input type="text" name="email" value="<?php if (isset($email)) { echo $email; } ?>">
             </div>
-            <div>
+            <!-- <div>
                 <label for="url">URL</label>
                 <input type="text" name="url" value="<?php if (isset($url)) { echo $url; } ?>">
-            </div>
+            </div> -->
             <div>
                 <input type="submit" value="Submit">
             </div>
