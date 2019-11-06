@@ -59,11 +59,25 @@ class Validate {
                     if ($formValue != $this->_formMethod[$ruleValue]) {
                        $this->_errors[$item] = "$itemLabel tidak sama!";
                     }
+                    break;
 
                 case 'email':
                     if ($ruleValue === TRUE && !filter_var($formValue, FILTER_VALIDATE_EMAIL)) {
                        $this->_errors[$item] = "Format $itemLabel tidak sesuai!";
                     }
+                    break;
+                
+                case 'url':
+                    if ($ruleValue === TRUE && !filter_var($formValue, FILTER_VALIDATE_URL)) {
+                        $this->_errors[$item] = "Format $itemLabel tidak sesuai";
+                    }
+                    break;
+                
+                case 'regexp':
+                    if (!preg_match($ruleValue, $formValue)) {
+                        $this->_errors[$item] = "Pola $itemLabel tidak sesuai";
+                    }
+                    break;
             }
             // cek jika sudah ada error di item yang sama, langsung keluar dari looping
             if (!empty($this->_errors[$item])) {

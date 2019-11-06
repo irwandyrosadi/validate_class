@@ -10,19 +10,20 @@
         $username = $validate->setRules('username', 'Username', [
             'sanitize'  => 'string',
             'required'  => true,
-            'min_char'  => 4
+            // 'min_char'  => 4,
+            'regexp'    => "/^[A-Za-z]{6,}$/"
         ]);
 
         $password = $validate->setRules('password', 'Password', [
             'sanitize'  => 'string',
             'required'  => true,
-            'min_char'  => 6
+            'min_char'  => 3
         ]);
 
         $ulangi_password = $validate->setRules('ulangi_password', 'Ulangi Password', [
             'sanitize'  => 'string',
             'required'  => true,
-            'min_char'  => 6,
+            'min_char'  => 3,
             'matches'   => 'password'
         ]);
 
@@ -30,6 +31,12 @@
             'sanitize'  => 'string',
             'required'  => true,
             'email'     => true
+        ]);
+
+        $url   = $validate->setRules('url', 'URL', [
+            'sanitize'  => 'string',
+            'required'  => true,
+            'url'       => true
         ]);
 
         if ($validate->passed()) {
@@ -88,6 +95,10 @@
             <div>
                 <label for="email">Email</label>
                 <input type="text" name="email" value="<?php if (isset($email)) { echo $email; } ?>">
+            </div>
+            <div>
+                <label for="url">URL</label>
+                <input type="text" name="url" value="<?php if (isset($url)) { echo $url; } ?>">
             </div>
             <div>
                 <input type="submit" value="Submit">
