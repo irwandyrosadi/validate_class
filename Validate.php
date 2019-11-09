@@ -10,7 +10,11 @@ class Validate {
 
     public function setRules($item, $itemLabel, $rules)
     {
-        $formValue = trim($this->_formMethod[$item]);
+        if (isset($this->_formMethod[$item])) {
+            $formValue = trim($this->_formMethod[$item]);            
+        } else {
+            $formValue = "";
+        }
 
         // jalankan proses sanitize untuk setiap item (jika disyaratkan)
         if (array_key_exists('sanitize', $rules)) {

@@ -34,4 +34,18 @@ class Input {
         }
         return $sanitizeValue;
     }
+
+    public static function generateOption($arr, $selectedValue= "")
+    {
+        $arrOption = [];
+        foreach ($arr as $key => $value) {
+            if ($value == $selectedValue) {
+                $arrOption[] = "<option value = \"$value\" selected> $value </option>";
+            } else {
+                $arrOption[] = "<option value = \"$value\" > $value </option>";
+            }
+        }
+
+        return implode(' ', $arrOption);
+    }
 }
